@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import Posts from "./components/Posts";
+import "../src/styles/App.css";
+import { useEffect, useMemo, useState } from "react";
+import Posts from "../components/Posts";
 
 interface Post {
     userId: number;
@@ -7,12 +8,12 @@ interface Post {
     title: string;
     body: string;
 }
-
-/** pegar uma referencia */
-export default function App() {
+/**a principal funcao dele e nao renderizar componentes quando eu estiver utilizando outros */
+/** renderizar somente quando houver uma alteração no componente*/
+/** use memo já pode memorizar componente diferente do useCallback que só memoriza funçoes */
+/** verificar se realmente vale a pena utilizar o Memo porque tem ocasies que vale mais a pena ficar criando do que memorizar */
+export default function Memo() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [value, setValue] = useState<any>("");
-    const input = useRef<any>(null);
 
     useEffect(() => {
         async function getPost() {
@@ -29,19 +30,9 @@ export default function App() {
 
         getPost();
     }, []);
-
-    useEffect(() => {
-        input.current.focus();
-        console.log("i", input.current);
-    }, [value]);
-
+    /**no use memo eu passo como dependencia quando vai ser necessario ele renderizar denovo */
     return (
         <div className="App">
-            <input
-                ref={input}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-            />
             {useMemo(() => {
                 return posts?.map((posts) => (
                     <Posts key={posts.id} posts={posts} />

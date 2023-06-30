@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import Posts from "./components/Posts";
+import Posts from "../components/Posts";
 
 interface Post {
     userId: number;
@@ -9,7 +9,7 @@ interface Post {
 }
 
 /** pegar uma referencia */
-export default function App() {
+export default function Ref() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [value, setValue] = useState<any>("");
     const input = useRef<any>(null);
@@ -37,11 +37,7 @@ export default function App() {
 
     return (
         <div className="App">
-            <input
-                ref={input}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-            />
+            <input value={value} onChange={(e) => setValue(e.target.value)} />
             {useMemo(() => {
                 return posts?.map((posts) => (
                     <Posts key={posts.id} posts={posts} />
