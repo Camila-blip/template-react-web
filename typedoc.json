@@ -1,0 +1,6 @@
+{
+    "entryPoints": ["./src"],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "name": "TEMPLATE-FRONT-WEB"
+}
